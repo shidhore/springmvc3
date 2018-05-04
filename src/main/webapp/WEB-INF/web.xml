@@ -20,5 +20,11 @@
 		<servlet-name>1repmaxtracker</servlet-name>
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
+	
+	<!-- mapping for serving static files such as pdfs in this case -->
+	<servlet-mapping>
+		<servlet-name>1repmaxtracker</servlet-name>
+		<url-pattern>/pdfs/**</url-pattern>
+	</servlet-mapping>
 
 </web-app>

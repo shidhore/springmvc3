@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Landing Page</title>
 </head>
 <body>
-	<!-- must match with name of attribute set in model.addAttribute(...) method 
-			inside Controller (HelloController.java in this case) -->
-	<h1>${greetingMessage}</h1>
+	<h1>Index</h1>
 </body>
 </html>

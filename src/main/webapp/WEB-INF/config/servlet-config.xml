@@ -13,6 +13,9 @@
 
 	<!-- package for Annotation scan -->
 	<context:component-scan base-package="com.ms.controller" />
+	
+	<!-- Configures a handler for serving static resources such as images, js, and, css files etc. -->
+	<mvc:resources location="pdfs" mapping="/pdfs/**"/>
 
 	<!-- bean declaration for jsp lookup -->
 	<!-- long hand way of doing declaration -->
