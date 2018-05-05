@@ -12,18 +12,35 @@
 	<mvc:annotation-driven />
 
 	<!-- package for Annotation scan -->
-	<context:component-scan base-package="com.ms.controller" />
-	
+	<context:component-scan
+		base-package="com.ms.controller" />
+
 	<!-- Configures a handler for serving static resources such as images, js, and, css files etc. -->
-	<mvc:resources location="pdfs" mapping="/pdfs/**"/>
+	<mvc:resources location="pdfs" mapping="/pdfs/**" />
+
+	<!-- bean for reading properties file - p:basename attribute value must match name of the properties file -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource"
+		p:basename="messages" />
+
+	<!-- following 2 beans represent use of interceptors -->
+	<mvc:interceptors>
+		<!-- p:paramName attribute value must match literal in URL we want to intercept - check addMinutes.jsp -->
+		<bean
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+			p:paramName="language" />
+	</mvc:interceptors>
+
+	<!-- name of file for Spanish must end with _es that matches URL we want to intercept - check addMinutes.jsp -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver"
+		p:defaultLocale="en" />
 
 	<!-- bean declaration for jsp lookup -->
 	<!-- long hand way of doing declaration -->
-	<!-- <bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean> -->
+	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+		<property name="prefix" value="/WEB-INF/jsp/" /> <property name="suffix" 
+		value=".jsp" /> </bean> -->
 
 	<!-- short hand way of doing declaration -->
 	<bean

@@ -9,29 +9,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add Minutes Page</title>
+<title>Add Goal Page</title>
 </head>
 <body>
-	<h1>Add Minutes Page Displayed</h1>
-	<!-- intercepting language using servlet-config mvc:interceptors element and p:paramName attribute of bean -->
-	Language : <a href="?language=en">English</a> | <a href="?language=es">Spanish</a>
+	<h1>Add Goal Page Displayed</h1>
 	<!-- below is Spring form element, not standard HTML element -->
 	<!-- use attribute commandName to bind to object - its value should be same as that in Controller -->
-	<form:form commandName="exerciseBinding">
+	<form:form commandName="goal">
 		<table>
 			<tr>
 				<!-- code attribute inside spring:message is the key inside message.properties file -->
-				<td><spring:message code="goal.text" /></td>
-				<!-- path="minutes" means there is a setter & getter method inside object represented by exerciseBinding for the field minutes -->
+				<td><spring:message code="entergoal.text" /></td>
+				<!-- path="minutes" means there is a setter & getter method inside object represented by addGoal for the field minutes -->
 				<td><form:input path="minutes" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Add Minutes">
+				<td colspan="2"><input type="submit" value="Add Goal Minutes">
 				</td>
 			</tr>
 		</table>
 	</form:form>
-	
-	<h1>Goal for the day is = ${goal.minutes}</h1>
 </body>
 </html>
