@@ -1,7 +1,10 @@
 package com.ms.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +29,11 @@ public class GoalController {
 
 	// @ModelAttribute annotation value must be same as that of commandName attribute value in jsp
 	@RequestMapping(value = "/addGoal", method = RequestMethod.POST)
-	public String updateGoalMinutes(@ModelAttribute("goal") Goal goal) {
+	public String updateGoalMinutes(@Valid @ModelAttribute("goal") Goal goal, BindingResult result) {
+		System.out.println("hasErrors = " + result.hasErrors());
+		if (result.hasErrors()) {
+			return "addGoal";
+		}
 		System.out.println("==== updateGoalMinutes ====");
 		System.out.println(">> goal minutes updated = " + goal.getMinutes());
 		return "redirect:addMinutes.html";
