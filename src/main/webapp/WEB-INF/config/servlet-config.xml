@@ -18,12 +18,12 @@
 	<!-- Configures a handler for serving static resources such as images, js, and, css files etc. -->
 	<mvc:resources location="pdfs" mapping="/pdfs/**" />
 
-	<!-- bean for reading properties file - p:basename attribute value must match name of the properties file -->
+	<!-- i18n - bean for reading properties file - p:basename attribute value must match name of the properties file -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource"
 		p:basename="messages" />
 
-	<!-- following 2 beans represent use of interceptors -->
+	<!-- i18n - following 2 beans represent use of interceptors -->
 	<mvc:interceptors>
 		<!-- p:paramName attribute value must match literal in URL we want to intercept - check addMinutes.jsp -->
 		<bean
@@ -31,7 +31,7 @@
 			p:paramName="language" />
 	</mvc:interceptors>
 
-	<!-- name of file for Spanish must end with _es that matches URL we want to intercept - check addMinutes.jsp -->
+	<!-- i18n - name of file for Spanish must end with _es that matches URL we want to intercept - check addMinutes.jsp -->
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.SessionLocaleResolver"
 		p:defaultLocale="en" />
@@ -45,6 +45,44 @@
 	<!-- short hand way of doing declaration -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" p:order="2" />
+
+	<!-- added for ordering of multiple view resolvers -->
+	<bean
+		class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="0" />
+		
+	<!-- content negotiating view resolver -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />
+		<property name="contentNegotiationManager">
+			<bean class="org.springframework.web.accept.ContentNegotiationManager">
+				<constructor-arg>
+					<bean class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
+						<constructor-arg>
+							<map>
+								<entry key="json" value="application/json" />
+								<entry key="xml" value="application/xml" />
+							</map>
+						</constructor-arg>
+					</bean>
+				</constructor-arg>
+			</bean>
+		</property>
+		
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+					<constructor-arg>
+						<bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+							<property name="autodetectAnnotations" value="true" />
+						</bean>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	
+	</bean>
 
 </beans>
