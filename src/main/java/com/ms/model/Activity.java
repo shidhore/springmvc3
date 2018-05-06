@@ -1,7 +1,7 @@
 package com.ms.model;
 
 public class Activity {
-	// tied to minutes in addMinutes.jsp
+
 	private String description;
 
 	public String getDescription() {

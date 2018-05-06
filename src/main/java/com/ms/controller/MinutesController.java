@@ -27,6 +27,7 @@ public class MinutesController {
 	public String addMinutes(@ModelAttribute("exerciseBinding") Exercise exercise) {
 		System.out.println("==== addMinutes ====");
 		System.out.println(">> exercise minutes = " + exercise.getMinutes());
+		System.out.println(">> exercise activity = " + exercise.getActivity());
 		return "addMinutes";
 	}
 
